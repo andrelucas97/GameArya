@@ -8,9 +8,12 @@ public class SlimeController : MonoBehaviour, IDamageable
     // VAR PUBLICAS
     public float jumpForce;
     public float jumpInterval;
-    public int life;
+    public float life;
+    public float maxLife;
     public int damage;
 
+    public float CurrentLife => life;
+    public float MaxLife => maxLife;
 
     // VAR PRIVADAS
     private float jumpTimer;

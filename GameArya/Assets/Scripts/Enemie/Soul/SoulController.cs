@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoulController : MonoBehaviour, IDamageable
 {
@@ -11,27 +12,35 @@ public class SoulController : MonoBehaviour, IDamageable
     public Transform b;
     public float speed;
     public int damage;
-    public int life;
 
+    [Header("Atributes Health")]
+    public float life;
+    public float maxLife;
+    public float CurrentLife => life;
+    public float MaxLife => maxLife;
+
+    [Header("Audios")]
+    public AudioSource audioSourceDeath;
+    public AudioSource audioSourceDamage;
     public AudioClip soulDeathSound;
+    public AudioClip soulDamageSound;
 
     // VAR PRIVADAS
     private CapsuleCollider2D colliderSoul;
     private Animator animator;
-    private bool goRight;
-    private AudioSource audioSource;
 
+    private bool goRight;
+    [SerializeField] private Image healthBarImage;
+    [SerializeField] private SoulController soulController;
 
     void Start()
     {
         colliderSoul = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
-        audioSource = GetComponent<AudioSource>();
+        //life = maxLife;
     }
-
     void Update()
-    {       
-
+    {
         if (goRight)
         {
             MovimentacaoSoul(false, b, 180f);
@@ -39,7 +48,6 @@ public class SoulController : MonoBehaviour, IDamageable
         else
         {
             MovimentacaoSoul(true, a, 0f);
-
         }
 
         if (life <= 0)
@@ -51,7 +59,7 @@ public class SoulController : MonoBehaviour, IDamageable
             
             this.enabled = false;
             colliderSoul.enabled = false;
-            audioSource.PlayOneShot(soulDeathSound);
+            audioSourceDeath.PlayOneShot(soulDeathSound);
             animator.Play("Dead", -1);
         }
     }
@@ -90,5 +98,10 @@ public class SoulController : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         life -= damage;
+        if (life > 0)
+        {
+            audioSourceDamage.PlayOneShot(soulDamageSound);
+        }
+
     }
 }

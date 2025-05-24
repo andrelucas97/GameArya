@@ -6,14 +6,14 @@ using UnityEngine;
 public class MemoryController : MonoBehaviour, IDamageable
 {
     // VAR PUBLICAS
-    private CapsuleCollider2D colliderMemory;
+    private BoxCollider2D colliderMemory;
     private Rigidbody2D rb;
     private Animator animator;
     private float sideSign;
     private string side;
 
     [Header("Atributes CheckGround")]
-    private float groundCheckDistance = 0.1f;
+    [SerializeField] private float groundCheckDistance = 0.3f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
 
@@ -23,14 +23,24 @@ public class MemoryController : MonoBehaviour, IDamageable
 
     [Header("Atributes")]
 
-    public int life;
+    public float life;
+    public float maxLife;
     public float speed;
     public int damage;
     public Transform player;
 
+    public float CurrentLife => life;
+    public float MaxLife => maxLife;
+
+    [Header("Aduios")]
+    public AudioSource audioSourceDamage;
+    public AudioSource audioSourceDeath;
+    public AudioClip audioDamage;
+    public AudioClip audioDeath;
+
     void Start()
     {
-        colliderMemory = GetComponent<CapsuleCollider2D>();
+        colliderMemory = GetComponent<BoxCollider2D>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
     }
@@ -40,6 +50,7 @@ public class MemoryController : MonoBehaviour, IDamageable
         if (life <= 0)
         {
             life = 0;
+            audioSourceDeath.PlayOneShot(audioDeath);
             animator.Play("Die", -1);
         }
     }
@@ -79,7 +90,6 @@ public class MemoryController : MonoBehaviour, IDamageable
 
         } else
         {
-            Debug.Log("Não está tocando no chao!");
             rb.velocity = Vector2.zero;
         }
     }
@@ -106,6 +116,11 @@ public class MemoryController : MonoBehaviour, IDamageable
     public void TakeDamage(int damage)
     {
         life -= damage;
+
+        if(life > 0)
+        {
+            audioSourceDamage.PlayOneShot(audioDamage);
+        }
     }
 
     public void DestroyAfterDeath()

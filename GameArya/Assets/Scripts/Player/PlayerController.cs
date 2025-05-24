@@ -15,14 +15,13 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private CapsuleCollider2D colliderPlayer;
 
-    private float lastEnergyUse = -Mathf.Infinity;
-    private AudioSource audioSource;
+    private float lastEnergyUse = -Mathf.Infinity;    
 
     // VAR PUBLICAS
     [Header("Atributes")]
     public int life = 10;
     public float energy = 10;
-    public float energPerSHot = 2;
+    public float energPerShot = 2;
     public float speed = 4;
 
     public float jumpForce = 10;
@@ -47,8 +46,15 @@ public class PlayerController : MonoBehaviour
     public bool isGrounded;
 
     [Header("Audios")]
-    [SerializeField]
+    public AudioSource audioSourceArrow;
+    public AudioSource audioSourceDamage;
     public AudioClip shotArrowSound;
+    public AudioClip damageSound;
+
+    public AudioSource audioSourceWalk;
+    public AudioClip walkSound;
+
+
 
     [Header("Others")]
     [SerializeField]
@@ -66,7 +72,6 @@ public class PlayerController : MonoBehaviour
         // declarando se o Player está virado para DIR ou ESQ
         facingRight = transform.eulerAngles.y == 0f;
 
-        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -101,7 +106,7 @@ public class PlayerController : MonoBehaviour
         
         if (Input.GetButtonDown("Fire2"))
         {
-            if (UseEnergy(energPerSHot))
+            if (UseEnergy(energPerShot))
             {
                 animator.Play(("Attack"), -1);
                 isFire = true;
@@ -140,9 +145,9 @@ public class PlayerController : MonoBehaviour
             arrow.GetComponent<Rigidbody2D>().velocity = new Vector2(-velocityArrow, 0);
 
         }
-        audioSource.PlayOneShot(shotArrowSound);
+        audioSourceArrow.PlayOneShot(shotArrowSound);
 
-        energy -= energPerSHot;
+        energy -= energPerShot;
 
     }
     #endregion
@@ -153,10 +158,13 @@ public class PlayerController : MonoBehaviour
     {
         life -= damage;
         animator.SetTrigger("Hurt");
+        audioSourceDamage.PlayOneShot(damageSound);
 
         if (life <= 0)
         {
             Die();
+            GetComponent<PlayerController>().enabled = false;
+            rb.velocity = Vector2.zero;
         }
     }
     #endregion
@@ -176,7 +184,14 @@ public class PlayerController : MonoBehaviour
             jumpCount++;
             // animator.SetBool("isJump", true);
         }
-    } 
+    }
+    
+    public void PlayFootstep()
+    {
+        if (!isGrounded) return;
+
+        audioSourceWalk.PlayOneShot(walkSound);
+    }
 
     void Move()
     {
