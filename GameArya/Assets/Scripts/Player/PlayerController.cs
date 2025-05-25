@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -54,15 +55,13 @@ public class PlayerController : MonoBehaviour
     public AudioSource audioSourceWalk;
     public AudioClip walkSound;
 
-
-
     [Header("Others")]
     [SerializeField]
     public Transform groundCheck;
     public Transform pointShot;
     public GameObject arrowPrefab;
     public LayerMask groundLayer;
-
+    public GameObject screenDead;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -157,7 +156,9 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         life -= damage;
-        animator.SetTrigger("Hurt");
+        //animator.SetTrigger("Hurt");
+
+        animator.Play("Hurt", -1);
         audioSourceDamage.PlayOneShot(damageSound);
 
         if (life <= 0)
@@ -165,9 +166,17 @@ public class PlayerController : MonoBehaviour
             Die();
             GetComponent<PlayerController>().enabled = false;
             rb.velocity = Vector2.zero;
+
+            screenDead.SetActive(true);
+            //RestartGame();
         }
     }
     #endregion
+
+    void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 
     // MOVIMENTACAO PLAYER
     #region Move Player

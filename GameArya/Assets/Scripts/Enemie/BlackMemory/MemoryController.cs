@@ -50,7 +50,7 @@ public class MemoryController : MonoBehaviour, IDamageable
         if (life <= 0)
         {
             life = 0;
-            audioSourceDeath.PlayOneShot(audioDeath);
+            //audioSourceDeath.PlayOneShot(audioDeath);
             animator.Play("Die", -1);
         }
     }
@@ -97,6 +97,9 @@ public class MemoryController : MonoBehaviour, IDamageable
     private bool IsGroundAhead()
     {
         RaycastHit2D hit = Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, groundLayer);
+
+        Debug.DrawRay(groundCheck.position, Vector2.down * groundCheckDistance, hit.collider ? Color.green : Color.red);
+
         return hit.collider != null;
     }
 
