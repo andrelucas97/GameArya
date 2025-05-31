@@ -60,7 +60,7 @@ public class Menu : MonoBehaviour
         var syen = SyenCanvas.Instance;
 
         string activeScene = SceneManager.GetActiveScene().name;
-        PlayerPrefs.SetString("LEVEL-SAVED", activeScene);
+        PlayerPrefs.SetString("LEVEL_SAVED", activeScene);
         PlayerPrefs.SetInt("KEY_LIFE", player.life);
         PlayerPrefs.SetInt("KEY_SYEN", syen.syenCount);
 
@@ -76,7 +76,7 @@ public class Menu : MonoBehaviour
     {
         LoadGame.Instance.Loading();
 
-        if (!PlayerPrefs.HasKey("LEVEL-SAVED")){
+        if (!PlayerPrefs.HasKey("LEVEL_SAVED")){
             notSaved.SetActive(true);
 
             StartCoroutine(HideMessage(notSaved));

@@ -204,7 +204,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 5
   m_Sprite: {fileID: 317090358, guid: b99dd7d9364c348489194e64b6fbd409, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -286,6 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSourceCollect: {fileID: 8069217370818424520}
   collectAudio: {fileID: 8300000, guid: f52bb0f395ec23747935b24e27810a85, type: 3}
+  itemID: 
 --- !u!1 &7298592333586381570
 GameObject:
   m_ObjectHideFlags: 0
