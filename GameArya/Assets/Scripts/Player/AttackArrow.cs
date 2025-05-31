@@ -49,7 +49,7 @@ public class AttackArrow : MonoBehaviour
             Destroy(gameObject);
         }
 
-        else
+        else if (collision.CompareTag("Obstacle"))
         {
             AudioSource audio = collision.GetComponent<AudioSource>();
             if (audio != null)
@@ -58,6 +58,23 @@ public class AttackArrow : MonoBehaviour
                 audio.Play();
             }
 
+            Debug.Log("Acertou um objeto!");
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        GameObject arrow = collision.gameObject;
+
+        if (arrow.CompareTag("Obstacle"))
+        {
+            AudioSource audio = arrow.GetComponent<AudioSource>();
+            if (audio != null)
+            {
+                audio.time = timeAudio;
+                audio.Play();
+            }
             Debug.Log("Acertou um objeto!");
             Destroy(gameObject);
         }

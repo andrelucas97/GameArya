@@ -1,5 +1,7 @@
 O que falta:
 
+detalhe: quando morre, a fase zera tudo (morre e inicia do level1? ou morre e inicia na fase q estava e continua com o que tava salvo?)
+
 Adicionar tutorial:
  - press W or Space for Jump/Double Jump
  - press A/D or <-/-> for Walk

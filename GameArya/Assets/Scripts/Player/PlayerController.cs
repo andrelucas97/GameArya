@@ -270,7 +270,6 @@ public class PlayerController : MonoBehaviour
         life = Mathf.Max(life, 0);
         animator.Play("Dead");
         screenDead.SetActive(true);
-
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

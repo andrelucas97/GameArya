@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class NewScene : MonoBehaviour
 {
+    public LevelLoader levelLoader;
+
 
     [SerializeField] private string levelToLoad;
     private void OnTriggerEnter2D(Collider2D collision)
@@ -19,7 +21,8 @@ public class NewScene : MonoBehaviour
             PlayerPrefs.SetInt("KEY_SYEN", SyenCanvas.Instance.syenCount);
             PlayerPrefs.SetString("LEVEL_SAVED", levelToLoad);
 
-            SceneManager.LoadScene(levelToLoad);
+            levelLoader.Transition(levelToLoad);
+            //SceneManager.LoadScene(levelToLoad);
         }
     }
 }

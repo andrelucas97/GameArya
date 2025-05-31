@@ -11,6 +11,8 @@ public class Menu : MonoBehaviour
     public GameObject notSaved;
     public GameObject gameSaved;
 
+    public LevelLoader levelLoader;
+
     void Start()
     {
         
@@ -29,23 +31,26 @@ public class Menu : MonoBehaviour
     {
         LoadGame.Instance.wasLoaded = false;
         PlayerPrefs.DeleteAll();
-        SceneManager.LoadScene(nameScene);
+        levelLoader.Transition(nameScene);
+        //SceneManager.LoadScene(nameScene);
     }
 
-    public void PlayAgain()
+    public void PlayAgain(string nameScene)
     {
-        string activeScene = SceneManager.GetActiveScene().name;
-
+        //string activeScene = SceneManager.GetActiveScene().name;
         //LoadGame.Instance.wasLoaded = false;
+
         PlayerPrefs.DeleteAll();
-        SceneManager.LoadScene(activeScene);
+        levelLoader.Transition(nameScene);
+
+        //SceneManager.LoadScene(activeScene);
 
     }
 
     public void LoadScene(string nameScene)
     {
         Time.timeScale =1.0f;
-        SceneManager.LoadScene(nameScene);
+        levelLoader.Transition(nameScene);
     }
 
     public void SaveGame()
