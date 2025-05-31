@@ -8,9 +8,9 @@ using UnityEngine.UI;
 public class SoulController : MonoBehaviour, IDamageable
 {
     // VAR PUBLICAS
-    public Transform a;
-    public Transform b;
-    public float speed;
+    [SerializeField] private Transform a;
+    [SerializeField] private Transform b;
+    [SerializeField] private float speed;
     public int damage;
 
     [Header("Atributes Health")]
@@ -20,10 +20,10 @@ public class SoulController : MonoBehaviour, IDamageable
     public float MaxLife => maxLife;
 
     [Header("Audios")]
-    public AudioSource audioSourceDeath;
-    public AudioSource audioSourceDamage;
-    public AudioClip soulDeathSound;
-    public AudioClip soulDamageSound;
+    [SerializeField] private AudioSource audioSourceDeath;
+    [SerializeField] private AudioSource audioSourceDamage;
+    [SerializeField] private AudioClip soulDeathSound;
+    [SerializeField] private AudioClip soulDamageSound;
 
     // VAR PRIVADAS
     private CapsuleCollider2D colliderSoul;

@@ -29,7 +29,11 @@ public class MovingPlatform : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.transform.SetParent(transform);
+            Transform playerParent = collision.transform.parent;
+            if (playerParent != null)
+            {
+                playerParent.SetParent(transform);
+            }
         }
     }
 
@@ -37,7 +41,20 @@ public class MovingPlatform : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.transform.SetParent(null);
+            Transform playerParent = collision.transform.parent;
+            if (playerParent != null)
+            {
+                playerParent.SetParent(null);
+            }
+        }
+    }
+
+    void MovePlatform(Collision2D collision)
+    {
+        Transform playerParent = collision.transform.parent;
+        if (playerParent != null)
+        {
+            playerParent.SetParent(null);
         }
     }
 }

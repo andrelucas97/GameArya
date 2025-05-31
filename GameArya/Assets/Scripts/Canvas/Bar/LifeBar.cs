@@ -7,11 +7,11 @@ public class LifeBar : MonoBehaviour
 {   
     public Image barLife;
     [SerializeField] private PlayerController playerController;
-    private float maxLife;
+    private float maxLife = 10;
 
     void Start()
     {
-        maxLife = playerController.life;
+        
     }
 
     void Update()

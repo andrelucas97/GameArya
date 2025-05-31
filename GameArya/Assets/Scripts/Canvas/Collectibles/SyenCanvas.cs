@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class SyenCanvas : MonoBehaviour
 {
-    public static SyenCanvas instance;
+    public static SyenCanvas Instance;
 
     public int syenCount = 0;
     public TextMeshProUGUI syenText;
@@ -14,9 +14,9 @@ public class SyenCanvas : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         } else
         {
             Destroy(gameObject);
@@ -24,6 +24,8 @@ public class SyenCanvas : MonoBehaviour
     }
     void Start()
     {
+
+        syenCount = PlayerPrefs.GetInt("KEY_SYEN", 0);
         UpdateUI();
     }
 

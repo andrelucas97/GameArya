@@ -28,6 +28,7 @@ public class MemoryController : MonoBehaviour, IDamageable
     public float speed;
     public int damage;
     public Transform player;
+    public GameObject barLife;
 
     public float CurrentLife => life;
     public float MaxLife => maxLife;
@@ -112,6 +113,7 @@ public class MemoryController : MonoBehaviour, IDamageable
             {
                 player.TakeDamage(damage);
             }
+            life = 0;
             animator.Play("Die", -1);
 
         }
@@ -126,8 +128,13 @@ public class MemoryController : MonoBehaviour, IDamageable
         }
     }
 
-    public void DestroyAfterDeath()
+    public void DestroyAfterDeath(AudioClip audioDeath)
     {
-        Destroy(gameObject);
+        GetComponent<Collider2D>().enabled = false;
+        GetComponent<SpriteRenderer>().enabled = false;        
+        barLife.SetActive(false);
+
+        audioSourceDeath.PlayOneShot(audioDeath);
+        Destroy(gameObject, audioDeath.length);
     }
 }

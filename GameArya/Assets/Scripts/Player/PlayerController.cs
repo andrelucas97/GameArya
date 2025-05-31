@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 using UnityEngine.SceneManagement;
+using static UnityEditor.PlayerSettings;
 
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance;
+
     // VAR PRIVADAS
     private Rigidbody2D rb;
     private float moveX;
@@ -19,20 +22,21 @@ public class PlayerController : MonoBehaviour
     private float lastEnergyUse = -Mathf.Infinity;    
 
     // VAR PUBLICAS
-    [Header("Atributes")]
-    public int life = 10;
+    [Header("Atributes Player")]
+    public int life;
     public float energy = 10;
     public float energPerShot = 2;
-    public float speed = 4;
+    private float speed = 4;
+    private bool isDead = false;
 
-    public float jumpForce = 10;
-    public int maxJump = 2;
-    public float groundCheckRadius = 0.2f;
+
+    [SerializeField] private float jumpForce = 10;
+    private int maxJump = 2;
+    private float groundCheckRadius = 0.2f;
 
     [Header("Atributes Arrow")]
     public float timeLastShot;
     public float velocityArrow;
-    public bool isFire;
 
     [Header("Atributes Regen")] // Publicas para melhorias no arco futuramente.
     public float maxEnergy;
@@ -43,25 +47,42 @@ public class PlayerController : MonoBehaviour
     public int syenCollection = 0;
         
     [Header("Bool")]
-    [SerializeField]
-    public bool isGrounded;
+    private bool isGrounded;
 
     [Header("Audios")]
-    public AudioSource audioSourceArrow;
-    public AudioSource audioSourceDamage;
-    public AudioClip shotArrowSound;
-    public AudioClip damageSound;
+    [SerializeField] private AudioSource audioSourceArrow;
+    [SerializeField] private AudioSource audioSourceDamage;
+    [SerializeField] private AudioClip shotArrowSound;
+    [SerializeField] private AudioClip damageSound;
 
-    public AudioSource audioSourceWalk;
-    public AudioClip walkSound;
+    [SerializeField] private AudioSource audioSourceWalk;
+    [SerializeField] private AudioClip walkSound;
 
     [Header("Others")]
-    [SerializeField]
-    public Transform groundCheck;
-    public Transform pointShot;
-    public GameObject arrowPrefab;
-    public LayerMask groundLayer;
-    public GameObject screenDead;
+    [SerializeField] private Transform groundCheck;
+    [SerializeField] private Transform pointShot;
+    [SerializeField] private GameObject arrowPrefab;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private GameObject screenDead;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        if (PlayerPrefs.GetInt("WAS_LOADED") == 1)
+        {
+            life = PlayerPrefs.GetInt("KEY_LIFE", 0);
+            syenCollection = PlayerPrefs.GetInt("KEY_SYEN", 0);
+            Debug.Log("Game loaded!"); // Adicionar imagem de mensagem
+        }
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -71,6 +92,12 @@ public class PlayerController : MonoBehaviour
         // declarando se o Player está virado para DIR ou ESQ
         facingRight = transform.eulerAngles.y == 0f;
 
+        if (PlayerPrefs.HasKey("WAS_LOADED") && PlayerPrefs.GetInt("WAS_LOADED") == 1)
+        {
+            float x = PlayerPrefs.GetFloat("KEY_POS_X", transform.position.x);
+            float y = PlayerPrefs.GetFloat("KEY_POS_Y", transform.position.y);
+            transform.position = new Vector3(x, y, transform.position.z);
+        }
     }
 
     void Update()
@@ -85,9 +112,30 @@ public class PlayerController : MonoBehaviour
         Attack();
 
         // Regeneracao Energia
-        RegenerateEnergy();
+        RegenerateEnergy();        
     }
 
+    public void SaveGame() // Salvando somente pelo Menu!
+    {
+        string activeScene = SceneManager.GetActiveScene().name;
+        PlayerPrefs.SetString("LEVEL_SAVED", activeScene);
+        PlayerPrefs.SetInt("KEY_LIFE", life);
+        PlayerPrefs.SetInt("KEY_SYEN", SyenCanvas.Instance.syenCount);
+
+        PlayerPrefs.SetFloat("KEY_POS_X", transform.position.x);
+        PlayerPrefs.SetFloat("KEY_POS_Y", transform.position.y);
+
+        Debug.Log("Game saved!"); // adicionar mensagem na tela
+    }
+
+    // MORTE QUEDA
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("DeathZone"))
+        {
+            Die();
+        }
+    }
     // REGENARACAO ENERGY
     void RegenerateEnergy()
     {
@@ -108,16 +156,12 @@ public class PlayerController : MonoBehaviour
             if (UseEnergy(energPerShot))
             {
                 animator.Play(("Attack"), -1);
-                isFire = true;
                 timeLastShot = 0.7f;
             }                    
         }
 
         timeLastShot -= Time.deltaTime;
-        if (timeLastShot <= 0)
-        {
-            isFire = false;
-        }        
+             
     }
 
     bool UseEnergy(float energ)
@@ -164,11 +208,6 @@ public class PlayerController : MonoBehaviour
         if (life <= 0)
         {
             Die();
-            GetComponent<PlayerController>().enabled = false;
-            rb.velocity = Vector2.zero;
-
-            screenDead.SetActive(true);
-            //RestartGame();
         }
     }
     #endregion
@@ -225,6 +264,22 @@ public class PlayerController : MonoBehaviour
     // MORTE PLAYER
     private void Die()
     {
+        if (isDead) return;
+
+        isDead = true;
+        life = Mathf.Max(life, 0);
         animator.Play("Dead");
+        screenDead.SetActive(true);
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (isDead && collision.gameObject.CompareTag("Ground"))
+        {
+            GetComponent<PlayerController>().enabled = false;
+            rb.velocity = Vector2.zero;
+            rb.gravityScale = 0;
+        }
     }
 }
