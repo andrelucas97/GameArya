@@ -1,5 +1,5 @@
 # 🧿 GameArya
-Criação básica de um jogo chamado **Arya**, inspirado na história original disponível em:  
+Criação básica de um jogo chamado **Arya**, inspirado na história original de Ana Fabbris disponível em:  
 👉 https://www.behance.net/gallery/99894667/Arya?tracking_source=
 
 ## 🎮 Sobre o projeto
