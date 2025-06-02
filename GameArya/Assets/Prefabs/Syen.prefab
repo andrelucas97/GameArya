@@ -41,10 +41,10 @@ AudioSource:
   m_GameObject: {fileID: 790179838985693644}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8634571997671873346, guid: 8061dbc506c18314e989cb43eb3aef8a, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.448
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -286,7 +286,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSourceCollect: {fileID: 8069217370818424520}
   collectAudio: {fileID: 8300000, guid: f52bb0f395ec23747935b24e27810a85, type: 3}
-  itemID: 
+  itemID: syen_1
 --- !u!1 &7298592333586381570
 GameObject:
   m_ObjectHideFlags: 0

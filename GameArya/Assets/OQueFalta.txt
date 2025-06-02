@@ -1,14 +1,8 @@
 O que falta:
 
-detalhe: quando morre, a fase zera tudo (morre e inicia do level1? ou morre e inicia na fase q estava e continua com o que tava salvo?)
-
 Adicionar tutorial:
  - press W or Space for Jump/Double Jump
  - press A/D or <-/-> for Walk
- - press Z for Attack
+ - press Z or X for Attack
 
-- Criação configurações (alterar som musica ou jogo)
-
-- Criação Level 3
-- Criar poderes ex. Flecha de fogo (mais dano)
 - Fazer com que Life e Syen não apareça na hora do loadgame.

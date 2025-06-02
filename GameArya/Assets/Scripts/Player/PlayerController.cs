@@ -5,6 +5,7 @@ using UnityEngine;
 using static UnityEngine.EventSystems.EventTrigger;
 using UnityEngine.SceneManagement;
 using static UnityEditor.PlayerSettings;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
     [Header("Atributes Arrow")]
     public float timeLastShot;
     public float velocityArrow;
+    [SerializeField] private float cooldownDuration = 60f;
 
     [Header("Atributes Regen")] // Publicas para melhorias no arco futuramente.
     public float maxEnergy;
@@ -48,6 +50,7 @@ public class PlayerController : MonoBehaviour
         
     [Header("Bool")]
     private bool isGrounded;
+    private bool firePower = true;
 
     [Header("Audios")]
     [SerializeField] private AudioSource audioSourceArrow;
@@ -58,10 +61,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private AudioSource audioSourceWalk;
     [SerializeField] private AudioClip walkSound;
 
+    [Header("Images")]
+    [SerializeField] private Image fireCDImage;
+
     [Header("Others")]
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform pointShot;
     [SerializeField] private GameObject arrowPrefab;
+    [SerializeField] private GameObject arrowFirePrefab;
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private GameObject screenDead;
 
@@ -151,13 +158,18 @@ public class PlayerController : MonoBehaviour
     void Attack()
     {
         
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire1"))
         {
             if (UseEnergy(energPerShot))
             {
                 animator.Play(("Attack"), -1);
                 timeLastShot = 0.7f;
             }                    
+        } else if (Input.GetButtonDown("Fire2"))
+        {
+            if (!firePower) return;
+
+            animator.Play(("Attack2"), -1);
         }
 
         timeLastShot -= Time.deltaTime;
@@ -177,7 +189,41 @@ public class PlayerController : MonoBehaviour
 
     public void FireArrow()
     {
-        GameObject arrow = Instantiate(arrowPrefab, pointShot.position, transform.rotation);
+
+        ShootArrow(arrowPrefab);
+        energy -= energPerShot;
+
+    }
+    public void FireArrowPower()
+    {
+
+        ShootArrow(arrowFirePrefab);
+        StartCoroutine(FireArrowCD());
+
+        // Colocar cooldown
+    }
+
+    private IEnumerator FireArrowCD()
+    {
+        firePower = false;
+        fireCDImage.fillAmount = 1f;
+
+        float elapsed = 0f;
+
+        while (elapsed < cooldownDuration)
+        {
+            elapsed += Time.deltaTime;
+            fireCDImage.fillAmount = 1f - (elapsed / cooldownDuration);
+            yield return null;
+        }
+
+        fireCDImage.fillAmount = 0f;
+        firePower = true;
+    }
+
+    private void ShootArrow(GameObject arrowShoot)
+    {
+        GameObject arrow = Instantiate(arrowShoot, pointShot.position, transform.rotation);
 
         if (facingRight)
         {
@@ -189,9 +235,6 @@ public class PlayerController : MonoBehaviour
 
         }
         audioSourceArrow.PlayOneShot(shotArrowSound);
-
-        energy -= energPerShot;
-
     }
     #endregion
 

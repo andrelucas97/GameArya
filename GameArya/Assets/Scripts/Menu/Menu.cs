@@ -10,6 +10,7 @@ public class Menu : MonoBehaviour
     public string nameScene;
     public GameObject notSaved;
     public GameObject gameSaved;
+    public GameObject settingsMenu;
 
     public LevelLoader levelLoader;
 
@@ -27,23 +28,27 @@ public class Menu : MonoBehaviour
 
     }
 
-    public void PlayGame(string nameScene)
+    public void PlayGame()
     {
         LoadGame.Instance.wasLoaded = false;
-        PlayerPrefs.DeleteAll();
-        levelLoader.Transition(nameScene);
-        //SceneManager.LoadScene(nameScene);
+        DeleteKeys();
+        levelLoader.Transition("Level1");
     }
 
-    public void PlayAgain(string nameScene)
+    public void PlayAgain()
     {
-        //string activeScene = SceneManager.GetActiveScene().name;
-        //LoadGame.Instance.wasLoaded = false;
+        DeleteKeys();        
+        levelLoader.Transition("Level1");
+    }
 
-        PlayerPrefs.DeleteAll();
-        levelLoader.Transition(nameScene);
-
-        //SceneManager.LoadScene(activeScene);
+    private void DeleteKeys()
+    {
+        string[] keysToDelete = { "LEVEL_SAVED", "KEY_LIFE", "KEY_SYEN", "KEY_POS_X", "KEY_POS_Y" };
+        foreach (string key in keysToDelete)
+        {
+            PlayerPrefs.DeleteKey(key);
+        }
+        PlayerPrefs.Save();
 
     }
 
@@ -91,9 +96,11 @@ public class Menu : MonoBehaviour
 
     void TogglePause()
     {
-        if (pauseMenu.activeSelf)
+        if (pauseMenu.activeSelf || settingsMenu.activeSelf)
         {
             pauseMenu.SetActive(false);
+            settingsMenu.SetActive(false);
+
             Time.timeScale = 1f;
         }
         else
@@ -101,6 +108,17 @@ public class Menu : MonoBehaviour
             pauseMenu.SetActive(true);
             Time.timeScale = 0f;
         }
+    }
+
+    public void SettingsMenu()
+    {
+        pauseMenu.SetActive(false);
+        settingsMenu.SetActive(true);
+    }
+    public void BacktoPause()
+    {
+        pauseMenu.SetActive(true);
+        settingsMenu.SetActive(false);
     }
 
     public void ResumeGame()
@@ -111,6 +129,7 @@ public class Menu : MonoBehaviour
 
     public void ExitGame()
     {
+        Debug.Log("Game Quit");
         Application.Quit();
     }
 }

@@ -291,6 +291,7 @@ MonoBehaviour:
   jumpForce: 10
   timeLastShot: 0.7
   velocityArrow: 20
+  cooldownDuration: 60
   maxEnergy: 10
   regenRate: 2
   regenDelay: 2
@@ -301,9 +302,11 @@ MonoBehaviour:
   damageSound: {fileID: 8300000, guid: f81adfed2cba9374391c761e76cfe579, type: 3}
   audioSourceWalk: {fileID: 8290999611288347264}
   walkSound: {fileID: 8300000, guid: 4b8e3aea16cecd4468846f146243ec1b, type: 3}
+  fireCDImage: {fileID: 0}
   groundCheck: {fileID: 6729615905684341678}
   pointShot: {fileID: 6607253965319060308}
   arrowPrefab: {fileID: 9016975920946341987, guid: 401b415422f83ad4786e3f2d6a1e6559, type: 3}
+  arrowFirePrefab: {fileID: 5822090068738119806, guid: d3000a6320c852b4581e4e6a9e8c4df7, type: 3}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
