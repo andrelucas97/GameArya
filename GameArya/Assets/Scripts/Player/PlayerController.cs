@@ -2,9 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.EventSystems.EventTrigger;
 using UnityEngine.SceneManagement;
-using static UnityEditor.PlayerSettings;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -305,10 +303,11 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     // MORTE PLAYER
-    private void Die()
+    public void Die()
     {
         if (isDead) return;
 
+        GetComponent<PlayerController>().enabled = false;
         isDead = true;
         life = Mathf.Max(life, 0);
         animator.Play("Dead");

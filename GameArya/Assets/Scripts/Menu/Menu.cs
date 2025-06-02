@@ -37,19 +37,21 @@ public class Menu : MonoBehaviour
 
     public void PlayAgain()
     {
-        DeleteKeys();        
+        DeleteKeys();   
         levelLoader.Transition("Level1");
     }
 
-    private void DeleteKeys()
+    public void DeleteKeys()
     {
-        string[] keysToDelete = { "LEVEL_SAVED", "KEY_LIFE", "KEY_SYEN", "KEY_POS_X", "KEY_POS_Y" };
-        foreach (string key in keysToDelete)
-        {
-            PlayerPrefs.DeleteKey(key);
-        }
-        PlayerPrefs.Save();
+        float musicVolume = PlayerPrefs.GetFloat("MusicVolume", 0.75f);
+        float sfxVolume = PlayerPrefs.GetFloat("SFXVolume", 0.75f);
 
+        PlayerPrefs.DeleteAll();
+
+        PlayerPrefs.SetFloat("MusicVolume", musicVolume);
+        PlayerPrefs.SetFloat("SFXVolume", sfxVolume);
+
+        PlayerPrefs.Save();
     }
 
     public void LoadScene(string nameScene)

@@ -33,10 +33,5 @@ public class LoadGame : MonoBehaviour
             string levelToload = PlayerPrefs.GetString("LEVEL_SAVED");
             SceneManager.LoadScene(levelToload);
         }
-        else
-        {
-            // chamar função dentro do Menu
-             // Adicionar imagem de mensagem
-        }
-    }
+    }    
 }
