@@ -4,7 +4,7 @@ Criação básica de um jogo chamado **Arya**, inspirado na história original d
 
 ## 🎮 Sobre o projeto
   🔧 Tecnologias e Recursos Usados
-    - **Unity**: sistema de cenas, animações, UI, física e lógica de jogo. /n
+    - **Unity**: sistema de cenas, animações, UI, física e lógica de jogo.
     - **Prefabs prontos** (Unity Asset Store) para cenário e personagem principal, além de sons e músicas.
     - **Inimigos e colecionáveis**(Criados por IA):
       - *Black Memory* e *Souls* (inimigos)
