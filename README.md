@@ -13,3 +13,6 @@ Criação básica de um jogo chamado **Arya**, inspirado na história original d
 ## 🚧 Status
 Projeto em desenvolvimento.  
 Foco atual: implementação de mecânicas e sistema de salvamento.
+
+## Link para vídeos dos jogos em desenvolvimento e final!
+Drive: https://drive.google.com/drive/folders/1w_UWLThfXWxUolI0m6gmcDeUo5B-E9H7?usp=drive_link
