@@ -11033,6 +11033,10 @@ PrefabInstance:
       propertyPath: sliderMusic
       value: 
       objectReference: {fileID: 91001992}
+    - target: {fileID: 5507878753552264357, guid: 1cbccee9cdfd7434991eeeb698411770, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 495bb73fff19adc40828873fc88951a6, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -63960,6 +63964,10 @@ PrefabInstance:
       propertyPath: fireCDImage
       value: 
       objectReference: {fileID: 925991854}
+    - target: {fileID: 1212189503062912625, guid: a90bd74d525f53846a07432aec112c73, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -8634571997671873346, guid: 8061dbc506c18314e989cb43eb3aef8a, type: 2}
     - target: {fileID: 3240532570414638357, guid: a90bd74d525f53846a07432aec112c73, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.32
@@ -64000,6 +64008,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7091536254864098970, guid: a90bd74d525f53846a07432aec112c73, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -8634571997671873346, guid: 8061dbc506c18314e989cb43eb3aef8a, type: 2}
+    - target: {fileID: 8290999611288347264, guid: a90bd74d525f53846a07432aec112c73, type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -8634571997671873346, guid: 8061dbc506c18314e989cb43eb3aef8a, type: 2}
     - target: {fileID: 9168440552599577864, guid: a90bd74d525f53846a07432aec112c73, type: 3}
       propertyPath: m_Name
       value: Player

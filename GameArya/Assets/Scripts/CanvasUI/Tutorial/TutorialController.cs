@@ -50,7 +50,6 @@ public class TutorialController : MonoBehaviour
 
     public void ShowTutorial(TutorialType tutorial)
     {
-        Debug.Log("Tutorial iniciado!");
         currentTutorial = tutorial;
         tutorialActive = true;
 
