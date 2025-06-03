@@ -15,5 +15,5 @@ Projeto em desenvolvimento.
 Foco atual: implementação de mecânicas e sistema de salvamento.
 
 ## Link para vídeos dos jogos em desenvolvimento e final!
-Itch.io: https://nibjr.itch.io/arya
+Itch.io: https://nibjr.itch.io/arya  
 Drive: https://drive.google.com/drive/folders/1w_UWLThfXWxUolI0m6gmcDeUo5B-E9H7?usp=drive_link
