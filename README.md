@@ -1,6 +1,11 @@
-# 🧿 GameArya
-Criação básica de um jogo chamado **Arya**, inspirado na história original de Ana Fabbris disponível em:  
-👉 https://www.behance.net/gallery/99894667/Arya?tracking_source=
+<h1 align="center">🧿 GameArya</h1>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/688e087f-df4d-488c-a761-cf9a009f824a" alt="Vídeo sem título ‐ Feito com o Clipchamp">
+</p>
+<p align="center">  
+  Criação básica de um jogo chamado <strong>Arya</strong>, inspirado na história original de Ana Fabbris disponível em: <br>
+  👉https://www.behance.net/gallery/99894667/Arya?tracking_source=
+</p> 
 
 ## 🎮 Sobre o projeto
   🔧 Tecnologias e Recursos Usados
@@ -13,3 +18,7 @@ Criação básica de um jogo chamado **Arya**, inspirado na história original d
 ## 🚧 Status
 Projeto em desenvolvimento.  
 Foco atual: implementação de mecânicas e sistema de salvamento.
+
+## Link para vídeos dos jogos em desenvolvimento e final!
+Itch.io: https://nibjr.itch.io/arya  
+Drive: https://drive.google.com/drive/folders/1w_UWLThfXWxUolI0m6gmcDeUo5B-E9H7?usp=drive_link
