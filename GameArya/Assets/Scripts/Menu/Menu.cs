@@ -68,6 +68,7 @@ public class Menu : MonoBehaviour
 
         string activeScene = SceneManager.GetActiveScene().name;
         PlayerPrefs.SetString("LEVEL_SAVED", activeScene);
+        PlayerPrefs.SetInt("LOAD_GAME", 1);
         PlayerPrefs.SetInt("KEY_LIFE", player.life);
         PlayerPrefs.SetInt("KEY_SYEN", syen.syenCount);
 

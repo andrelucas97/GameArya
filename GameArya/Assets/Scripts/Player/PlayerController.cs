@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
         // declarando se o Player está virado para DIR ou ESQ
         facingRight = transform.eulerAngles.y == 0f;
 
-        if (PlayerPrefs.HasKey("WAS_LOADED") && PlayerPrefs.GetInt("WAS_LOADED") == 1)
+        if (PlayerPrefs.HasKey("LOAD_GAME") && PlayerPrefs.GetInt("LOAD_GAME") == 1)
         {
             float x = PlayerPrefs.GetFloat("KEY_POS_X", transform.position.x);
             float y = PlayerPrefs.GetFloat("KEY_POS_Y", transform.position.y);

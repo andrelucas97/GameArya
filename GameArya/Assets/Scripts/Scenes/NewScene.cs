@@ -15,7 +15,7 @@ public class NewScene : MonoBehaviour
 
         if (collision.CompareTag("Player"))
         {
-
+            PlayerPrefs.SetInt("LOAD_GAME", 0);
             PlayerPrefs.SetInt("WAS_LOADED", 1);
             PlayerPrefs.SetInt("KEY_LIFE", player.life);
             PlayerPrefs.SetInt("KEY_SYEN", SyenCanvas.Instance.syenCount);
